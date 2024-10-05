@@ -1,0 +1,4 @@
+"STARTUP.obj",
+"kp.obj" 
+TO "keypad" 
+RAMSIZE(256) 

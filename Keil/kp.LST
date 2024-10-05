@@ -1,0 +1,157 @@
+C51 COMPILER V9.53.0.0   KP                                                                09/24/2024 11:24:33 PAGE 1   
+
+
+C51 COMPILER V9.53.0.0, COMPILATION OF MODULE KP
+OBJECT MODULE PLACED IN kp.OBJ
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE kp.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          #include<reg52.h>
+   2          
+   3          #define lcd P2
+   4          
+   5          sbit rs=P3^5;
+   6          sbit rw=P3^6;
+   7          sbit en=P3^7;
+   8          
+   9          sbit r1=P1^0;
+  10          sbit r2=P1^1;
+  11          sbit r3=P1^2;
+  12          sbit r4=P1^3;
+  13          sbit c1=P1^4;
+  14          sbit c2=P1^5;
+  15          sbit c3=P1^6;
+  16          sbit c4=P1^7;
+  17          
+  18          void lcd_init();
+  19          void cmd(unsigned char );
+  20          void dat(unsigned char );
+  21          lcd_string(unsigned char *);
+  22          void delay(unsigned int);
+  23          void keypad(void);
+  24          
+  25          void main()
+  26          {
+  27   1      lcd_init();
+  28   1      while(1){
+  29   2        cmd(0x80);
+  30   2        lcd_string("Enter the key:");
+  31   2        cmd(0xc7);
+  32   2        keypad();
+  33   2      }
+  34   1      }
+  35          void keypad()
+  36          {
+  37   1      c1=c2=c3=c4=1;
+  38   1      r1=0;r2=1;r3=1;r4=1;
+  39   1      if(c1==0){
+  40   2      while(c1==0);
+  41   2      dat('7');
+  42   2      }else if(c2==0){
+  43   2      while(c2==0);
+  44   2      dat('8');
+  45   2      }else if(c3==0){
+  46   2      while(c3==0);
+  47   2      dat('9');
+  48   2      }else if(c4==0){
+  49   2      while(c4==0);
+  50   2      dat('/');
+  51   2      }
+  52   1      r1=1;r2=0;r3=1;r4=1;
+  53   1      if(c1==0){
+  54   2      while(c1==0);
+  55   2      dat('4');
+C51 COMPILER V9.53.0.0   KP                                                                09/24/2024 11:24:33 PAGE 2   
+
+  56   2      }else if(c2==0){
+  57   2      while(c2==0);
+  58   2      dat('5');
+  59   2      }else if(c3==0){
+  60   2      while(c3==0);
+  61   2      dat('6');
+  62   2      }else if(c4==0){
+  63   2      while(c4==0);
+  64   2      dat('B');
+  65   2      }
+  66   1      r1=1;r2=1;r3=0;r4=1;
+  67   1      if(c1==0){
+  68   2      while(c1==0);
+  69   2      dat('7');
+  70   2      }else if(c2==0){
+  71   2      while(c2==0);
+  72   2      dat('8');
+  73   2      }else if(c3==0){
+  74   2      while(c3==0);
+  75   2      dat('9');
+  76   2      }else if(c4==0){
+  77   2      while(c4==0);
+  78   2      dat('C');
+  79   2      }
+  80   1      r1=1;r2=1;r3=1;r4=0;
+  81   1      if(c1==0){
+  82   2      while(c1==0);
+  83   2      dat('*');
+  84   2      }else if(c2==0){
+  85   2      while(c2==0);
+  86   2      dat('0');
+  87   2      }else if(c3==0){
+  88   2      while(c3==0);
+  89   2      dat('#');
+  90   2      }else if(c4==0){
+  91   2      while(c4==0);
+  92   2      dat('D');
+  93   2      }
+  94   1      }
+  95          void lcd_init()
+  96          {
+  97   1      cmd(0x38);
+  98   1      cmd(0x0e);
+  99   1      cmd(0x06);
+ 100   1      cmd(0x01);
+ 101   1      }
+ 102          void cmd(unsigned char x)
+ 103          {
+ 104   1      lcd=x;
+ 105   1      rs=0;
+ 106   1      rw=0;
+ 107   1      en=1;
+ 108   1      delay(1000);
+ 109   1      en=0;
+ 110   1      }
+ 111          void dat(unsigned char y)
+ 112          {
+ 113   1      lcd=y;
+ 114   1      rs=1;
+ 115   1      rw=0;
+ 116   1      en=1;
+ 117   1      delay(1000);
+C51 COMPILER V9.53.0.0   KP                                                                09/24/2024 11:24:33 PAGE 3   
+
+ 118   1      en=0;
+ 119   1      }
+ 120          lcd_string(unsigned char *s)
+ 121          {
+ 122   1        while(*s)
+ 123   1          dat(*s++);
+ 124   1      }
+ 125          void delay(unsigned int z)
+ 126          {
+ 127   1        unsigned int i;
+ 128   1          for(i=0;i<=z;i++);
+ 129   1      }
+*** WARNING C290 IN LINE 124 OF kp.c: missing return value
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    335    ----
+   CONSTANT SIZE    =     15    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       3
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)
